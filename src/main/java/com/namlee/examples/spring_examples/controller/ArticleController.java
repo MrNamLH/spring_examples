@@ -1,0 +1,60 @@
+package com.namlee.examples.spring_examples.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.namlee.examples.spring_examples.domain.Article;
+import com.namlee.examples.spring_examples.service.ArticleService;
+
+@RestController
+@RequestMapping("/api/article")
+public class ArticleController {
+
+	@Autowired
+	private ArticleService articleService;
+
+	@GetMapping("/all")
+	public List<Article> getAllArticles() {
+		return this.articleService.findAll();
+	}
+
+	@GetMapping("/search")
+	public List<Article> searchByTitle(@RequestParam("title") String title) {
+		return this.articleService.search(title);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Article> getArticle(@PathVariable("id") long id) {
+		return this.articleService.findOne(id);
+	}
+
+	@PostMapping("/save")
+	public Article saveArticle(@Valid @RequestBody Article article) {
+		return this.articleService.save(article);
+	}
+
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<Article> updateArticleById(@PathVariable(value = "id") long id,
+			@Valid @RequestBody Article newArticle) {
+		return this.articleService.updateArticleById(id, newArticle);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Void> deleteArticle(@PathVariable("id") long id) {
+		return this.articleService.delete(id);
+	}
+
+}

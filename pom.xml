@@ -10,7 +10,9 @@
 	<packaging>jar</packaging>
 
 	<name>spring_examples</name>
-	<description>Demo project for Spring Boot, Spring MVC, Thymeleaf, Spring Security, Spring Data JPA, MySQL</description>
+	<description>Demo project for Spring Boot, Spring MVC, Thymeleaf, 
+		Spring Security, RestFULL Service, Spring Data JPA, MySQL
+	</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -41,6 +43,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -33,8 +33,8 @@ public class ContactServiceImpl implements ContactService {
 
 	@Override
 	@Transactional
-	public void save(Contact contact) {
-		contactRepository.save(contact);
+	public Contact save(Contact contact) {
+		return contactRepository.save(contact);
 	}
 
 	@Override
