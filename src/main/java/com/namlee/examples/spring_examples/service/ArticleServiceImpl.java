@@ -24,19 +24,38 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
+	public ResponseEntity<List<Article>> findAllWs() {
+		List<Article> articles = this.articleRepository.findAll();
+
+		return new ResponseEntity<List<Article>>(articles, HttpStatus.OK);
+	}
+
+	@Override
 	public List<Article> search(String title) {
 		return articleRepository.findByTitleContaining(title);
 	}
 
 	@Override
-	public ResponseEntity<Article> findOne(long id) {
+	public ResponseEntity<List<Article>> searchWs(String title) {
+		List<Article> searchResult = this.search(title);
+
+		return new ResponseEntity<List<Article>>(searchResult, HttpStatus.OK);
+	}
+
+	@Override
+	public Article findOne(long id) {
+		return this.articleRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public ResponseEntity<Article> findOneWs(long id) {
 		return articleRepository.findById(id).map(article -> ResponseEntity.ok(article))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@Override
 	@Transactional
-	public ResponseEntity<Article> updateArticleById(long id, Article newArticle) {
+	public ResponseEntity<Article> updateArticleByIdWs(long id, Article newArticle) {
 		return articleRepository.findById(id).map(existingArticle -> {
 			existingArticle.setTitle(newArticle.getTitle());
 			existingArticle.setContent(newArticle.getContent());
@@ -48,12 +67,18 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	@Transactional
 	public Article save(Article article) {
-		return articleRepository.save(article);
+		return this.articleRepository.save(article);
 	}
 
 	@Override
 	@Transactional
-	public ResponseEntity<Void> delete(long id) {
+	public void delete(long id) {
+		this.articleRepository.deleteById(id);
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<Void> deleteWs(long id) {
 		return articleRepository.findById(id).map(existingArtical -> {
 			articleRepository.delete(existingArtical);
 

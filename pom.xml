@@ -10,8 +10,9 @@
 	<packaging>jar</packaging>
 
 	<name>spring_examples</name>
-	<description>Demo project for Spring Boot, Spring MVC, Thymeleaf, 
-		Spring Security, RestFULL Service, Spring Data JPA, MySQL
+	<description>Example project for Spring Boot, Spring MVC, Thymeleaf, 
+		Spring Security, RESTful Service, Spring Data JPA, MySQL, SQL Server, 
+		Oracle, PostgreSQL
 	</description>
 
 	<parent>
@@ -74,6 +75,31 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.jtds</groupId>
+			<artifactId>jtds</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -86,6 +112,13 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
 			<version>3.3.1-1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.webjars.npm/popper.js -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>popper.js</artifactId>
+			<version>1.14.4</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
@@ -121,6 +154,12 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</repository>
+
+		<!-- Repository for ORACLE JDBC Driver -->
+		<repository>
+			<id>codelds</id>
+			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
 		</repository>
 	</repositories>
 

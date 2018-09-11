@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "acticle")
@@ -21,10 +21,10 @@ public class Article implements Serializable {
 	@Column(name = "id", nullable = false)
 	private long id;
 
-	@NotNull
+	@NotEmpty
 	private String title;
 
-	@NotNull
+	@NotEmpty
 	private String content;
 
 	public Article() {

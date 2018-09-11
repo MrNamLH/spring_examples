@@ -14,7 +14,7 @@ public class MainController {
 
 	@GetMapping("/")
 	public String index() {
-		return "index";
+		return "redirect:/articles";
 	}
 
 	@GetMapping("/admin")
@@ -29,7 +29,7 @@ public class MainController {
 
 	@GetMapping("/login")
 	public String getLogin() {
-		return "/web/login";
+		return "/login";
 	}
 
 	@GetMapping("/logout")

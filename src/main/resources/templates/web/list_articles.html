@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content list">
+		<div th:if="${success}"
+			class="row alert alert-success alert-dismissible fade show"
+			role="alert">
+			<span th:text="${success}"></span>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+
+		<th:block th:if="${#lists.isEmpty(articles)}">
+			<h3>No articles</h3>
+			<a th:href="@{/articles/create}" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				Add new article
+			</a>
+		</th:block>
+
+		<th:block th:unless="${#lists.isEmpty(articles)}">
+			<div class="row justify-content-between">
+				<a th:href="@{/articles/create}"
+					class="btn btn-success justify-content-start"> <span
+						class="fas fa-plus"></span> Add new article
+				</a>
+				<form class="form-inline justify-content-end" action="#"
+					th:action="@{/articles/search}" method="GET">
+					<div class="form-group">
+						<input type="text" class="form-control" name="q"
+							placeholder="Type article title..." />
+					</div>
+					<button type="submit" class="btn btn-primary">Search</button>
+				</form>
+			</div>
+			<div class="container">
+				<div class="row">
+					<ul class="list-unstyled">
+						<li th:each="article,iterStat : ${articles}" class="media">
+							<!-- 							<img class="mr-3" src=".../64x64" alt="Image"> -->
+							<div class="media-body">
+								<h5 class="mt-0 mb-1">
+									<a th:href="@{/articles/{id}/edit(id=${article.id})}"
+										th:text="${article.title}"> </a>
+								</h5>
+								<p class="lead" th:text="${article.content}"></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</th:block>
+	</div>
+	<!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
