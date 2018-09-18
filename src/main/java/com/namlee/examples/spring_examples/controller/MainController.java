@@ -42,4 +42,9 @@ public class MainController {
 		return "redirect:/";
 	}
 
+	@GetMapping("/socket")
+	public String getSocket() {
+		return "/socket/index";
+	}
+
 }

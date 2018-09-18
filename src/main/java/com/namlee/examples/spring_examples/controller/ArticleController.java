@@ -34,7 +34,7 @@ public class ArticleController {
 
 	// @ResponseBody: return as JSON object
 	@GetMapping("/articles/json")
-	//@ResponseBody
+	@ResponseBody
 	public List<Article> getAllArticles() {
 		return this.articleService.findAll();
 	}

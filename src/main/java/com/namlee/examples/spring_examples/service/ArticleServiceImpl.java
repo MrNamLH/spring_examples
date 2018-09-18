@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.namlee.examples.spring_examples.domain.Article;
+import com.namlee.examples.spring_examples.exceptionhandling.EntityNotFoundException;
 import com.namlee.examples.spring_examples.repository.ArticleRepository;
 
 @Service
@@ -45,6 +46,12 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Article findOne(long id) {
 		return this.articleRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public Article findOneWithException(long id) throws EntityNotFoundException {
+		return this.articleRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(Article.class, "id", String.valueOf(id)));
 	}
 
 	@Override

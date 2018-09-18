@@ -15,8 +15,12 @@
 						th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></em>
 				</div>
 				<div class="form-group">
-					<label>Content</label> <input type="text" class="form-control"
-						th:field="*{content}" th:errorclass="field-error" /> <em
+					<label>Content</label> 
+<!-- 					<input type="text" class="form-control" -->
+<!-- 						th:field="*{content}" th:errorclass="field-error" /> <em -->
+<!-- 						th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></em> -->
+						<textarea class="form-control" th:field="*{content}" th:errorclass="field-error" rows="3"></textarea>
+						<em
 						th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></em>
 				</div>
 				<button type="submit" class="btn btn-primary">Save</button>

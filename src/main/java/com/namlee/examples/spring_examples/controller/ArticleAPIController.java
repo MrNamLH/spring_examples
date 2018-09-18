@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.namlee.examples.spring_examples.domain.Article;
+import com.namlee.examples.spring_examples.exceptionhandling.EntityNotFoundException;
 import com.namlee.examples.spring_examples.service.ArticleService;
 
 @RestController
@@ -39,6 +40,11 @@ public class ArticleAPIController {
 	@GetMapping("/articles/{id}")
 	public ResponseEntity<Article> getArticle(@PathVariable("id") long id) {
 		return this.articleService.findOneWs(id);
+	}
+
+	@GetMapping("/articles/exception/{id}")
+	public Article getArticleWithException(@PathVariable("id") long id) throws EntityNotFoundException {
+		return this.articleService.findOneWithException(id);
 	}
 
 	@PostMapping("/articles")

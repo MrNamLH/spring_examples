@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "acticle")
 public class Article implements Serializable {
@@ -25,6 +27,7 @@ public class Article implements Serializable {
 	private String title;
 
 	@NotEmpty
+	@Type(type = "text")
 	private String content;
 
 	public Article() {

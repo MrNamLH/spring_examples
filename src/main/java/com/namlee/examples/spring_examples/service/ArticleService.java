@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.namlee.examples.spring_examples.domain.Article;
+import com.namlee.examples.spring_examples.exceptionhandling.EntityNotFoundException;
 
 public interface ArticleService {
 
@@ -17,6 +18,8 @@ public interface ArticleService {
 	ResponseEntity<List<Article>> searchWs(String title);
 
 	Article findOne(long id);
+
+	Article findOneWithException(long id) throws EntityNotFoundException;
 
 	ResponseEntity<Article> findOneWs(long id);
 
