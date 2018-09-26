@@ -11,8 +11,8 @@
 
 	<name>spring_examples</name>
 	<description>Example project for Spring Boot, Spring MVC, Thymeleaf, 
-		Spring Security, RESTful Service, Spring Data JPA, MySQL, SQL Server, 
-		Oracle, PostgreSQL
+		Spring Security, RESTful Service, Spring Web Socket, Mockito,
+		Spring Data JPA, MySQL, SQL Server, Oracle, PostgreSQL
 	</description>
 
 	<parent>
@@ -26,9 +26,18 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>10</java.version>
+		<sockjs-client.version>1.1.2</sockjs-client.version>
+		<stomp-websocket.version>2.3.4</stomp-websocket.version>
+		<webjars-locator.version>0.34</webjars-locator.version>
+		<ojdbc6.version>11.2.0.3</ojdbc6.version>
+		<bootstrap.version>4.1.3</bootstrap.version>
+		<jquery.version>3.3.1-1</jquery.version>
+		<popper.js.version>1.14.4</popper.js.version>
+		<font-awesome.version>5.3.1</font-awesome.version>
 	</properties>
 
 	<dependencies>
+		<!-- SPRINGBOOT -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -60,11 +69,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -75,72 +79,76 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Web socket -->
+		<!-- SPRING WEB SOCKET -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-websocket</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-messaging -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-messaging</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>sockjs-client</artifactId>
+			<version>${sockjs-client.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>stomp-websocket</artifactId>
+			<version>${stomp-websocket.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.webjars/sockjs-client -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>sockjs-client</artifactId>
-			<version>1.1.2</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.webjars.bower/stomp-websocket -->
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>stomp-websocket</artifactId>
-			<version>2.3.4</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>webjars-locator</artifactId>
-			<version>0.34</version>
+			<version>${webjars-locator.version}</version>
 		</dependency>
 
-		<!-- Spring boot exception -->
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+		<!-- SPRINGBOOT EXCEPTION HANDLING -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+		</dependency>
 
+
+		<!-- JDBC Driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.3</version>
+			<version>${ojdbc6.version}</version>
 		</dependency>
 
 		<dependency>
@@ -161,32 +169,41 @@
 			<artifactId>postgresql</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- BOOTSTRAP -->
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>4.1.3</version>
+			<version>${bootstrap.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>3.3.1-1</version>
+			<version>${jquery.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars.npm/popper.js -->
 		<dependency>
 			<groupId>org.webjars.npm</groupId>
 			<artifactId>popper.js</artifactId>
-			<version>1.14.4</version>
+			<version>${popper.js.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>font-awesome</artifactId>
-			<version>5.3.1</version>
+			<version>${font-awesome.version}</version>
 		</dependency>
 	</dependencies>
 

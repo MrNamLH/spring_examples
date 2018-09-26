@@ -1,4 +1,4 @@
-package com.namlee.spring.spring_examples;
+package com.namlee.examples;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

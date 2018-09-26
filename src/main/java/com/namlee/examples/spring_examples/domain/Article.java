@@ -12,6 +12,13 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.Type;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "acticle")
 public class Article implements Serializable {
@@ -29,40 +36,4 @@ public class Article implements Serializable {
 	@NotEmpty
 	@Type(type = "text")
 	private String content;
-
-	public Article() {
-		super();
-	}
-
-	public Article(long id, String title, String content) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.content = content;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.namlee.examples.spring_examples.domain.Article;
@@ -30,13 +29,6 @@ public class ArticleController {
 		model.addAttribute("articles", articles);
 
 		return "/web/list_articles";
-	}
-
-	// @ResponseBody: return as JSON object
-	@GetMapping("/articles/json")
-	@ResponseBody
-	public List<Article> getAllArticles() {
-		return this.articleService.findAll();
 	}
 
 	@GetMapping("/articles/search")
@@ -60,7 +52,7 @@ public class ArticleController {
 
 	@GetMapping("/articles/{id}/edit")
 	public String editArticle(@PathVariable long id, Model model) {
-		Article editArticle = this.articleService.findOneWs(id).getBody();
+		Article editArticle = this.articleService.findOne(id);
 		model.addAttribute("article", editArticle);
 
 		return "/web/article_form";
