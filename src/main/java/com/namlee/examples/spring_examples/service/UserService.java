@@ -4,7 +4,7 @@ import com.namlee.examples.spring_examples.domain.User;
 
 public interface UserService {
 
-	User findByEmail(String email);
+    User findByEmail(String email);
 
-	void save(User user);
+    void save(User user);
 }

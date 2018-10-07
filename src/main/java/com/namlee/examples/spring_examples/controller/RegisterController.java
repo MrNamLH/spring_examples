@@ -21,36 +21,38 @@ import com.namlee.examples.spring_examples.validator.RegisterValidator;
 @Controller
 public class RegisterController {
 
-	@Autowired
-	private RegisterValidator registerValidator;
+    @Autowired
+    private RegisterValidator registerValidator;
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@GetMapping("/register")
-	public String getRegister(Model model) {
-		model.addAttribute("user", new User());
-		return "admin/register";
-	}
+    @GetMapping("/register")
+    public String getRegister(Model model) {
 
-	@PostMapping("/register")
-	public String postRegister(@Valid User user, BindingResult result, RedirectAttributes redirect) {
-		registerValidator.validate(user, result);
-		if (result.hasErrors()) {
-			return "admin/register";
-		}
+        model.addAttribute("user", new User());
+        return "admin/register";
+    }
 
-		HashSet<Role> roles = new HashSet<>();
-		roles.add(roleRepository.findByName("ROLE_MEMBER"));
-		user.setRoles(roles);
+    @PostMapping("/register")
+    public String postRegister(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 
-		userService.save(user);
+        registerValidator.validate(user, result);
+        if (result.hasErrors()) {
+            return "admin/register";
+        }
 
-		redirect.addFlashAttribute("success", "Registered successfully!");
-		return "redirect:/";
-	}
+        HashSet<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName("ROLE_MEMBER"));
+        user.setRoles(roles);
+
+        userService.save(user);
+
+        redirect.addFlashAttribute("success", "Registered successfully!");
+        return "redirect:/";
+    }
 
 }

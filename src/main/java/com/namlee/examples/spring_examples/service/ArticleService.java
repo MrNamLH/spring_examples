@@ -9,26 +9,26 @@ import com.namlee.examples.spring_examples.exceptionhandling.EntityNotFoundExcep
 
 public interface ArticleService {
 
-	List<Article> findAll();
+    List<Article> findAll();
 
-	ResponseEntity<List<Article>> findAllWs();
+    ResponseEntity<List<Article>> findAllWs();
 
-	List<Article> search(String title);
+    List<Article> search(String title);
 
-	ResponseEntity<List<Article>> searchWs(String title);
+    ResponseEntity<List<Article>> searchWs(String title);
 
-	Article findOne(long id);
+    Article findOne(long id);
 
-	Article findOneWithException(long id) throws EntityNotFoundException;
+    Article findOneWithException(long id) throws EntityNotFoundException;
 
-	ResponseEntity<Article> findOneWs(long id);
+    ResponseEntity<Article> findOneWs(long id);
 
-	Article save(Article article);
+    Article save(Article article);
 
-	ResponseEntity<Article> updateArticleByIdWs(long id, Article newArticle);
+    ResponseEntity<Article> updateArticleByIdWs(long id, Article newArticle);
 
-	void delete(long id);
+    void delete(long id);
 
-	ResponseEntity<Void> deleteWs(long id);
+    ResponseEntity<Void> deleteWs(long id);
 
 }

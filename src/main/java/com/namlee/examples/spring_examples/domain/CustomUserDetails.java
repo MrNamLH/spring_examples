@@ -8,56 +8,66 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private User user;
+    private User user;
 
-	private List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+    private List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+        return user;
+    }
 
-	public List<SimpleGrantedAuthority> getAuthorities() {
-		return authorities;
-	}
+    public void setUser(User user) {
 
-	public void setAuthorities(List<SimpleGrantedAuthority> authorities) {
-		this.authorities = authorities;
-	}
+        this.user = user;
+    }
 
-	@Override
-	public String getUsername() {
-		return user.getEmail();
-	}
+    public List<SimpleGrantedAuthority> getAuthorities() {
 
-	@Override
-	public String getPassword() {
-		return user.getPassword();
-	}
+        return authorities;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    public void setAuthorities(List<SimpleGrantedAuthority> authorities) {
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+        this.authorities = authorities;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+        return user.getEmail();
+    }
+
+    @Override
+    public String getPassword() {
+
+        return user.getPassword();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+
+        return true;
+    }
 
 }

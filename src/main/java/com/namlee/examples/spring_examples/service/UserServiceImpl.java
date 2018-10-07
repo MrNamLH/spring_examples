@@ -14,29 +14,31 @@ import com.namlee.examples.spring_examples.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Override
-	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
+    @Override
+    public User findByEmail(String email) {
 
-	@Override
-	public void save(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.findByEmail(email);
+    }
 
-		HashSet<Role> roles = new HashSet<>();
-		roles.add(roleRepository.findByName("ROLE_MEMBER"));
-		user.setRoles(roles);
+    @Override
+    public void save(User user) {
 
-		userRepository.save(user);
-	}
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        HashSet<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName("ROLE_MEMBER"));
+        user.setRoles(roles);
+
+        userRepository.save(user);
+    }
 
 }

@@ -26,32 +26,33 @@ import com.namlee.examples.spring_examples.service.ArticleService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
-@ContextConfiguration(classes = { ArticleAPIController.class, WebMvcConfig.class, WebSecurityConfig.class })
+@ContextConfiguration(classes = { ArticleAPIController.class, WebMvcConfig.class, WebSecurityConfig.class
+})
 //@SpringBootTest(classes = ArticleController.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 //@TestPropertySource(locations = "classpath:application-integrationtest.properties")
 public class ArticleAPIControllerTest_V2 {
 
-	@Autowired
-	WebApplicationContext context;
+    @Autowired
+    WebApplicationContext context;
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@MockBean
-	private ArticleService articleService;
+    @MockBean
+    private ArticleService articleService;
 
-	@Before
-	public void setUp() {
+    @Before
+    public void setUp() {
 
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
-	}
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+    }
 
-	@Test
-	public void testGetAllArticles() throws Exception {
+    @Test
+    public void testGetAllArticles() throws Exception {
 
-		this.mockMvc.perform(get("/api/v1/articles").contentType(MediaType.APPLICATION_JSON)).andDo(print())
-				.andExpect(status().isOk());
-	}
+        this.mockMvc.perform(get("/api/v1/articles").contentType(MediaType.APPLICATION_JSON)).andDo(print())
+                .andExpect(status().isOk());
+    }
 
 }

@@ -10,19 +10,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-	@Bean
-	public MessageSource messageSource() {
-		ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
-		bean.addBasenames("classpath:messages");
-		bean.setDefaultEncoding("UTF-8");
-		return bean;
-	}
+    @Bean
+    public MessageSource messageSource() {
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// Enable static/upload folder
-		String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/static/upload/" };
-		registry.addResourceHandler("/static/upload/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-	}
+        ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
+        bean.addBasenames("classpath:messages");
+        bean.setDefaultEncoding("UTF-8");
+        return bean;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        // Enable static/upload folder
+        String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/static/upload/"
+        };
+        registry.addResourceHandler("/static/upload/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+    }
 
 }

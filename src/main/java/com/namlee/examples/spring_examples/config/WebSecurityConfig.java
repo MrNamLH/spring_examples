@@ -15,49 +15,54 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	// Web Security
-	@Autowired
-	private UserDetailsService userDetailsService;
+    // Web Security
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
+        return new BCryptPasswordEncoder();
+    }
 
-	// Authentication : User --> Roles
-	// @Override
-	/*protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user1").password("secret1").roles("USER").and().withUser("admin1")
-				.password("secret1").roles("USER", "ADMIN");
-	}*/
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-	// Authorization
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers("/", "/register").permitAll()
-				//.anyRequest().authenticated()
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				// .antMatchers("/admin/**").access("hasRole('ADMIN')")
-				// .antMatchers("/api/**").hasRole("MEMBER")
-					.and()
-				.formLogin()
-					.loginPage("/login")
-						.usernameParameter("name")
-						.passwordParameter("password")
-					.defaultSuccessUrl("/")
-					.failureUrl("/login?error")
-					.and()
-				.exceptionHandling()
-					.accessDeniedPage("/403")
-					.and()
-				.csrf().disable();
-				//.headers().frameOptions().disable();
-	}
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    // Authentication : User --> Roles
+    // @Override
+    /*protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    	auth.inMemoryAuthentication().withUser("user1").password("secret1").roles("USER").and().withUser("admin1")
+    			.password("secret1").roles("USER", "ADMIN");
+    }*/
+
+    // Authorization
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.authorizeRequests()
+            .antMatchers("/", "/register")
+                .permitAll()
+            //.anyRequest().authenticated()
+            .antMatchers("/admin/**")
+                .hasRole("ADMIN")
+            // .antMatchers("/admin/**").access("hasRole('ADMIN')")
+            // .antMatchers("/api/**").hasRole("MEMBER")
+            .and().formLogin()
+                .loginPage("/login")
+                .usernameParameter("name")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login?error")
+                .and()
+            .exceptionHandling()
+                .accessDeniedPage("/403")
+                .and()
+            .csrf()
+                .disable();
+            //.headers().frameOptions().disable();
+    }
 
 }

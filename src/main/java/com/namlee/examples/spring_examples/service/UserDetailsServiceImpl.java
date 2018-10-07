@@ -20,38 +20,40 @@ import com.namlee.examples.spring_examples.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByName(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("User not found");
-		}
+    @Override
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-//		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-//		Set<Role> roles = user.getRoles();
-//		for (Role role : roles) {
-//			grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-//		}
-//
-//		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-//				grantedAuthorities);
-		// Get roles of user
+        User user = userRepository.findByName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
 
-		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		Set<Role> roles = user.getRoles();
-		for (Role role : roles) {
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
-		}
+        //        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        //        Set<Role> roles = user.getRoles();
+        //        for (Role role : roles) {
+        //            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        //        }
+        //
+        //        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+        //                grantedAuthorities);
+        // Get roles of user
 
-		CustomUserDetails customUserDetails = new CustomUserDetails();
-		customUserDetails.setUser(user);
-		customUserDetails.setAuthorities(authorities);
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        Set<Role> roles = user.getRoles();
 
-		return customUserDetails;
-	}
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+        CustomUserDetails customUserDetails = new CustomUserDetails();
+        customUserDetails.setUser(user);
+        customUserDetails.setAuthorities(authorities);
+
+        return customUserDetails;
+    }
 
 }

@@ -6,14 +6,14 @@ import com.namlee.examples.spring_examples.domain.Contact;
 
 public interface ContactService {
 
-	Iterable<Contact> findAll();
+    Iterable<Contact> findAll();
 
-	List<Contact> search(String q);
+    List<Contact> search(String q);
 
-	Contact findOne(int id);
+    Contact findOne(int id);
 
-	Contact save(Contact contact);
+    Contact save(Contact contact);
 
-	void delete(int id);
+    void delete(int id);
 
 }

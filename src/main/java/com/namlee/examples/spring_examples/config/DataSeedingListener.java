@@ -16,52 +16,53 @@ import com.namlee.examples.spring_examples.repository.UserRepository;
 @Component
 public class DataSeedingListener implements ApplicationListener<ContextRefreshedEvent> {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Override
-	public void onApplicationEvent(ContextRefreshedEvent arg0) {
-		// Roles
-		if (roleRepository.findByName("ROLE_ADMIN") == null) {
-			roleRepository.save(new Role("ROLE_ADMIN"));
-		}
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent arg0) {
 
-		if (roleRepository.findByName("ROLE_MEMBER") == null) {
-			roleRepository.save(new Role("ROLE_MEMBER"));
-		}
+        // Roles
+        if (roleRepository.findByName("ROLE_ADMIN") == null) {
+            roleRepository.save(new Role("ROLE_ADMIN"));
+        }
 
-		// Admin account
-		if (userRepository.findByEmail("admin@gmail.com") == null) {
-			User admin = new User();
-			admin.setName("admin");
-			admin.setEmail("admin@gmail.com");
-			admin.setPassword(passwordEncoder.encode("123"));
+        if (roleRepository.findByName("ROLE_MEMBER") == null) {
+            roleRepository.save(new Role("ROLE_MEMBER"));
+        }
 
-			HashSet<Role> roles = new HashSet<>();
-			roles.add(roleRepository.findByName("ROLE_ADMIN"));
-			roles.add(roleRepository.findByName("ROLE_MEMBER"));
-			admin.setRoles(roles);
+        // Admin account
+        if (userRepository.findByEmail("admin@gmail.com") == null) {
+            User admin = new User();
+            admin.setName("admin");
+            admin.setEmail("admin@gmail.com");
+            admin.setPassword(passwordEncoder.encode("123"));
 
-			userRepository.save(admin);
-		}
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByName("ROLE_ADMIN"));
+            roles.add(roleRepository.findByName("ROLE_MEMBER"));
+            admin.setRoles(roles);
 
-		// Member account
-		if (userRepository.findByEmail("member@gmail.com") == null) {
-			User user = new User();
-			user.setName("member");
-			user.setEmail("member@gmail.com");
-			user.setPassword(passwordEncoder.encode("123"));
-			HashSet<Role> roles = new HashSet<>();
-			roles.add(roleRepository.findByName("ROLE_MEMBER"));
-			user.setRoles(roles);
-			userRepository.save(user);
-		}
-	}
+            userRepository.save(admin);
+        }
+
+        // Member account
+        if (userRepository.findByEmail("member@gmail.com") == null) {
+            User user = new User();
+            user.setName("member");
+            user.setEmail("member@gmail.com");
+            user.setPassword(passwordEncoder.encode("123"));
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByName("ROLE_MEMBER"));
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
+    }
 
 }

@@ -24,43 +24,50 @@ import com.namlee.examples.spring_examples.service.ArticleService;
 @RequestMapping("/api/v1")
 public class ArticleAPIController {
 
-	@Autowired
-	private ArticleService articleService;
+    @Autowired
+    private ArticleService articleService;
 
-	@GetMapping("/articles")
-	public ResponseEntity<List<Article>> getAllArticles() {
-		return this.articleService.findAllWs();
-	}
+    @GetMapping("/articles")
+    public ResponseEntity<List<Article>> getAllArticles() {
 
-	@GetMapping("/articles/search")
-	public ResponseEntity<List<Article>> searchByTitle(@RequestParam("title") String title) {
-		return this.articleService.searchWs(title);
-	}
+        return this.articleService.findAllWs();
+    }
 
-	@GetMapping("/articles/{id}")
-	public ResponseEntity<Article> getArticle(@PathVariable("id") long id) {
-		return this.articleService.findOneWs(id);
-	}
+    @GetMapping("/articles/search")
+    public ResponseEntity<List<Article>> searchByTitle(@RequestParam("title") String title) {
 
-	@GetMapping("/articles/exception/{id}")
-	public Article getArticleWithException(@PathVariable("id") long id) throws EntityNotFoundException {
-		return this.articleService.findOneWithException(id);
-	}
+        return this.articleService.searchWs(title);
+    }
 
-	@PostMapping("/articles")
-	public Article saveArticle(@Valid @RequestBody Article article) {
-		return this.articleService.save(article);
-	}
+    @GetMapping("/articles/{id}")
+    public ResponseEntity<Article> getArticle(@PathVariable("id") long id) {
 
-	@PutMapping("/articles/{id}")
-	public ResponseEntity<Article> updateArticleById(@PathVariable(value = "id") long id,
-			@Valid @RequestBody Article newArticle) {
-		return this.articleService.updateArticleByIdWs(id, newArticle);
-	}
+        return this.articleService.findOneWs(id);
+    }
 
-	@DeleteMapping("/articles/{id}")
-	public ResponseEntity<Void> deleteArticle(@PathVariable("id") long id) {
-		return this.articleService.deleteWs(id);
-	}
+    @GetMapping("/articles/exception/{id}")
+    public Article getArticleWithException(@PathVariable("id") long id) throws EntityNotFoundException {
+
+        return this.articleService.findOneWithException(id);
+    }
+
+    @PostMapping("/articles")
+    public Article saveArticle(@Valid @RequestBody Article article) {
+
+        return this.articleService.save(article);
+    }
+
+    @PutMapping("/articles/{id}")
+    public ResponseEntity<Article> updateArticleById(@PathVariable(value = "id") long id,
+            @Valid @RequestBody Article newArticle) {
+
+        return this.articleService.updateArticleByIdWs(id, newArticle);
+    }
+
+    @DeleteMapping("/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable("id") long id) {
+
+        return this.articleService.deleteWs(id);
+    }
 
 }

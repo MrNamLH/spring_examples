@@ -8,8 +8,8 @@ import com.namlee.examples.spring_examples.domain.Article;
 
 public interface ArticleRepository extends CrudRepository<Article, Long> {
 
-	@Override
-	List<Article> findAll();
+    @Override
+    List<Article> findAll();
 
-	List<Article> findByTitleContaining(String title);
+    List<Article> findByTitleContaining(String title);
 }

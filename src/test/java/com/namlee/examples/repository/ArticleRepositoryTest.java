@@ -18,30 +18,30 @@ import com.namlee.examples.spring_examples.repository.ArticleRepository;
 @DataJpaTest
 public class ArticleRepositoryTest {
 
-	@Autowired
-	private TestEntityManager entityManager;
+    @Autowired
+    private TestEntityManager entityManager;
 
-	@Autowired
-	private ArticleRepository articleRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
-	@Test
-	public void whenFindAll_thenReturnAllArticle() {
+    @Test
+    public void whenFindAll_thenReturnAllArticle() {
 
-		// given
-		Article article1 = new Article(1, "title_1", "content_1");
-		Article article2 = new Article(2, "title_2", "content_2");
-		Article article3 = new Article(3, "title_3", "content_3");
+        // given
+        Article article1 = new Article(1, "title_1", "content_1");
+        Article article2 = new Article(2, "title_2", "content_2");
+        Article article3 = new Article(3, "title_3", "content_3");
 
-		this.entityManager.merge(article1);
-		this.entityManager.merge(article2);
-		this.entityManager.merge(article3);
-		this.entityManager.flush();
+        this.entityManager.merge(article1);
+        this.entityManager.merge(article2);
+        this.entityManager.merge(article3);
+        this.entityManager.flush();
 
-		// when
-		List<Article> articles = this.articleRepository.findAll();
+        // when
+        List<Article> articles = this.articleRepository.findAll();
 
-		// then
-		assertEquals(articles.size(), 3);
-	}
+        // then
+        assertEquals(articles.size(), 3);
+    }
 
 }

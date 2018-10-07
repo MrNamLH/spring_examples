@@ -20,62 +20,68 @@ import com.namlee.examples.spring_examples.service.ArticleService;
 @Controller
 public class ArticleController {
 
-	@Autowired
-	private ArticleService articleService;
+    @Autowired
+    private ArticleService articleService;
 
-	@GetMapping("/articles")
-	public String getAllArticle(Model model) {
-		List<Article> articles = this.articleService.findAll();
-		model.addAttribute("articles", articles);
+    @GetMapping("/articles")
+    public String getAllArticle(Model model) {
 
-		return "/web/list_articles";
-	}
+        List<Article> articles = this.articleService.findAll();
+        model.addAttribute("articles", articles);
 
-	@GetMapping("/articles/search")
-	public String search(@RequestParam("q") String title, Model model) {
-		if (title.equals("")) {
-			return "redirect:/articles";
-		}
+        return "/web/list_articles";
+    }
 
-		List<Article> searchResult = this.articleService.search(title);
-		model.addAttribute("articles", searchResult);
+    @GetMapping("/articles/search")
+    public String search(@RequestParam("q") String title, Model model) {
 
-		return "/web/list_articles";
-	}
+        if (title.equals("")) {
+            return "redirect:/articles";
+        }
 
-	@GetMapping("/articles/create")
-	public String createArticle(Model model) {
-		model.addAttribute("article", new Article());
+        List<Article> searchResult = this.articleService.search(title);
+        model.addAttribute("articles", searchResult);
 
-		return "/web/article_form";
-	}
+        return "/web/list_articles";
+    }
 
-	@GetMapping("/articles/{id}/edit")
-	public String editArticle(@PathVariable long id, Model model) {
-		Article editArticle = this.articleService.findOne(id);
-		model.addAttribute("article", editArticle);
+    @GetMapping("/articles/create")
+    public String createArticle(Model model) {
 
-		return "/web/article_form";
-	}
+        model.addAttribute("article", new Article());
 
-	@PostMapping("/articles/save")
-	public String saveArticle(@Valid Article article, BindingResult result, RedirectAttributes redirect) {
-		if (result.hasErrors()) {
-			return "/web/article_form";
-		}
+        return "/web/article_form";
+    }
 
-		this.articleService.save(article);
-		redirect.addFlashAttribute("success", "Save article successfully !!!");
+    @GetMapping("/articles/{id}/edit")
+    public String editArticle(@PathVariable long id, Model model) {
 
-		return "redirect:/articles";
-	}
+        Article editArticle = this.articleService.findOne(id);
+        model.addAttribute("article", editArticle);
 
-	@GetMapping("/articles/{id}/delete")
-	public String deleteArticle(@PathVariable long id, RedirectAttributes redirect) {
-		this.articleService.delete(id);
-		redirect.addFlashAttribute("success", "Delete article successfully !!!");
+        return "/web/article_form";
+    }
 
-		return "redirect:/articles";
-	}
+    @PostMapping("/articles/save")
+    public String saveArticle(@Valid Article article, BindingResult result, RedirectAttributes redirect) {
+
+        if (result.hasErrors()) {
+            return "/web/article_form";
+        }
+
+        this.articleService.save(article);
+        redirect.addFlashAttribute("success", "Save article successfully !!!");
+
+        return "redirect:/articles";
+    }
+
+    @GetMapping("/articles/{id}/delete")
+    public String deleteArticle(@PathVariable long id, RedirectAttributes redirect) {
+
+        this.articleService.delete(id);
+        redirect.addFlashAttribute("success", "Delete article successfully !!!");
+
+        return "redirect:/articles";
+    }
 
 }

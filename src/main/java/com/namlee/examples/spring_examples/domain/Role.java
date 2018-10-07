@@ -16,89 +16,99 @@ import javax.persistence.Table;
 @Table(name = "role")
 public class Role implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false, unique = true)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false, unique = true)
+    private int id;
 
-	@Column(name = "name", nullable = false)
-	private String name;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-	@ManyToMany(mappedBy = "roles")
-	private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
 
-	public Role() {
-	}
+    public Role() {}
 
-	public Role(String name) {
-		this.name = name;
-	}
+    public Role(String name) {
 
-	public int getId() {
-		return id;
-	}
+        this.name = name;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
 
-	public String getName() {
-		return name;
-	}
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
 
-	public Set<User> getUsers() {
-		return users;
-	}
+        this.id = id;
+    }
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
+    public String getName() {
 
-	public void addUser(User user) {
-		users.add(user);
-		user.getRoles().add(this);
-	}
+        return name;
+    }
 
-	public void removeUser(User user) {
-		users.remove(user);
-		user.getRoles().remove(this);
-	}
+    public void setName(String name) {
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
+        this.name = name;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
+    public Set<User> getUsers() {
 
-		if (obj == null) {
-			return false;
-		}
+        return users;
+    }
 
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
+    public void setUsers(Set<User> users) {
 
-		if (obj instanceof Role) {
-			Role other = (Role) obj;
-			if (id != other.id) {
-				return false;
-			}
-		}
-		return true;
-	}
+        this.users = users;
+    }
+
+    public void addUser(User user) {
+
+        users.add(user);
+        user.getRoles().add(this);
+    }
+
+    public void removeUser(User user) {
+
+        users.remove(user);
+        user.getRoles().remove(this);
+    }
+
+    @Override
+    public int hashCode() {
+
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        if (obj instanceof Role) {
+            Role other = (Role) obj;
+            if (id != other.id) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

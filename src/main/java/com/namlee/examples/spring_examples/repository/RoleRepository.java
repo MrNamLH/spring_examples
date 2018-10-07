@@ -6,6 +6,6 @@ import com.namlee.examples.spring_examples.domain.Role;
 
 public interface RoleRepository extends CrudRepository<Role, Integer> {
 
-	Role findByName(String name);
+    Role findByName(String name);
 
 }

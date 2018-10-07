@@ -16,67 +16,77 @@ import javax.validation.constraints.NotEmpty;
 @Table(name = "contact")
 public class Contact implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private int id;
 
-	@NotEmpty
-	@Column(name = "name", nullable = false)
-	private String name;
+    @NotEmpty
+    @Column(name = "name", nullable = false)
+    private String name;
 
-	@NotEmpty
-	@Email
-	@Column(name = "email")
-	private String email;
+    @NotEmpty
+    @Email
+    @Column(name = "email")
+    private String email;
 
-	@Column(name = "phone")
-	private String phone;
+    @Column(name = "phone")
+    private String phone;
 
-	public Contact() {
-		super();
-	}
+    public Contact() {
 
-	public Contact(int id, String name, String email, String phone) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-	}
+        super();
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Contact(int id, String name, String email, String phone) {
 
-	public void setId(int id) {
-		this.id = id;
-	}
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getId() {
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setId(int id) {
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+        this.id = id;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getName() {
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+        return name;
+    }
+
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
+    public String getEmail() {
+
+        return email;
+    }
+
+    public void setEmail(String email) {
+
+        this.email = email;
+    }
+
+    public String getPhone() {
+
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+
+        this.phone = phone;
+    }
 
 }

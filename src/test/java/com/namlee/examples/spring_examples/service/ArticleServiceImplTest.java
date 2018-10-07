@@ -33,167 +33,172 @@ import com.namlee.examples.spring_examples.repository.ArticleRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class ArticleServiceImplTest {
 
-	@InjectMocks
-	private ArticleServiceImpl articleServiceImpl;
+    @InjectMocks
+    private ArticleServiceImpl articleServiceImpl;
 
-	@Mock
-	private ArticleRepository articleRepository;
+    @Mock
+    private ArticleRepository articleRepository;
 
-	private List<Article> dbData = new ArrayList<>();
+    private List<Article> dbData = new ArrayList<>();
 
-	private List<Article> createArticles(int lenght) {
-		List<Article> articles = new ArrayList<>();
+    private List<Article> createArticles(int lenght) {
 
-		for (int i = 0; i < lenght; i++) {
-			articles.add(new Article(Long.parseLong(String.valueOf(i)), "Title_" + i, "Content_" + i));
-		}
+        List<Article> articles = new ArrayList<>();
 
-		return articles;
-	}
+        for (int i = 0; i < lenght; i++) {
+            articles.add(new Article(Long.parseLong(String.valueOf(i)), "Title_" + i, "Content_" + i));
+        }
 
-	@Before
-	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+        return articles;
+    }
 
-		this.dbData = this.createArticles(3);
+    @Before
+    public void setUp() throws Exception {
 
-		Answer<List<Article>> dnAnswer = new Answer<List<Article>>() {
+        MockitoAnnotations.initMocks(this);
 
-			@Override
-			public List<Article> answer(InvocationOnMock invocation) throws Throwable {
-				List<Article> articles = new ArrayList<>();
+        this.dbData = this.createArticles(3);
 
-				for (int i = 0; i < dbData.size(); i++) {
-					Article article = new Article(Long.parseLong(String.valueOf(i)), "Title_" + i, "Content_" + i);
-					articles.add(article);
-				}
-				return articles;
-			}
-		};
+        Answer<List<Article>> dnAnswer = new Answer<List<Article>>() {
 
-		when(this.articleRepository.findAll()).thenAnswer(dnAnswer);
-		when(this.articleRepository.findByTitleContaining(anyString())).thenAnswer(dnAnswer);
-	}
+            @Override
+            public List<Article> answer(InvocationOnMock invocation) throws Throwable {
 
-	/**
-	 * findAll() test case
-	 */
-	@Test
-	public void testFindAll_returnNotNullOrEmptyList() {
+                List<Article> articles = new ArrayList<>();
 
-		assertThat(this.articleServiceImpl.findAll(), is(notNullValue()));
-		verify(this.articleRepository, times(1)).findAll();
-	}
+                for (int i = 0; i < dbData.size(); i++) {
+                    Article article = new Article(Long.parseLong(String.valueOf(i)), "Title_" + i, "Content_" + i);
+                    articles.add(article);
+                }
+                return articles;
+            }
+        };
 
-	@Test
-	public void testFindAll_returnEmptyList() {
+        when(this.articleRepository.findAll()).thenAnswer(dnAnswer);
+        when(this.articleRepository.findByTitleContaining(anyString())).thenAnswer(dnAnswer);
+    }
 
-		when(this.articleRepository.findAll()).thenReturn(new ArrayList<Article>());
-		List<Article> articles = this.articleServiceImpl.findAll();
+    /**
+     * findAll() test case
+     */
+    @Test
+    public void testFindAll_returnNotNullOrEmptyList() {
 
-		assertTrue(articles.size() == 0);
-	}
+        assertThat(this.articleServiceImpl.findAll(), is(notNullValue()));
+        verify(this.articleRepository, times(1)).findAll();
+    }
 
-	@Test(expected = RuntimeException.class)
-	public void testFindAll_throwsException() {
+    @Test
+    public void testFindAll_returnEmptyList() {
 
-		when(this.articleRepository.findAll()).thenThrow(RuntimeException.class);
-		this.articleServiceImpl.findAll();
-	}
+        when(this.articleRepository.findAll()).thenReturn(new ArrayList<Article>());
+        List<Article> articles = this.articleServiceImpl.findAll();
 
-	@Test
-	public void testFindAll_returnNewArrayListSize3() {
+        assertTrue(articles.size() == 0);
+    }
 
-		List<Article> articles = this.articleServiceImpl.findAll();
-		assertTrue(articles.size() == 3);
-	}
+    @Test(expected = RuntimeException.class)
+    public void testFindAll_throwsException() {
 
-	/**
-	 * search() test case
-	 */
-	@Test
-	public void testSearch_returnEmptyList() {
+        when(this.articleRepository.findAll()).thenThrow(RuntimeException.class);
+        this.articleServiceImpl.findAll();
+    }
 
-		when(this.articleRepository.findByTitleContaining(anyString())).thenReturn(new ArrayList<Article>());
-		assertTrue(this.articleServiceImpl.search("test search tittle").size() == 0);
-	}
+    @Test
+    public void testFindAll_returnNewArrayListSize3() {
 
-	@Test
-	public void testSearch_returnListSize3() {
+        List<Article> articles = this.articleServiceImpl.findAll();
+        assertTrue(articles.size() == 3);
+    }
 
-		assertTrue(this.articleServiceImpl.search("test title").size() == 3);
-	}
+    /**
+     * search() test case
+     */
+    @Test
+    public void testSearch_returnEmptyList() {
 
-	@Test(expected = RuntimeException.class)
-	public void testSearch_throwsException() {
+        when(this.articleRepository.findByTitleContaining(anyString())).thenReturn(new ArrayList<Article>());
+        assertTrue(this.articleServiceImpl.search("test search tittle").size() == 0);
+    }
 
-		when(this.articleRepository.findByTitleContaining(anyString())).thenThrow(RuntimeException.class);
-		this.articleServiceImpl.search("test title");
-	}
+    @Test
+    public void testSearch_returnListSize3() {
 
-	/**
-	 * save() test case
-	 */
-	@Test
-	public void testSave_returnArticleWithId() {
+        assertTrue(this.articleServiceImpl.search("test title").size() == 3);
+    }
 
-//		when(this.articleRepository.save(any())).then(invocationOnMock -> invocationOnMock.getArgument(0));
-		when(this.articleRepository.save(any(Article.class))).thenAnswer(new Answer<Article>() {
+    @Test(expected = RuntimeException.class)
+    public void testSearch_throwsException() {
 
-			@Override
-			public Article answer(InvocationOnMock invocation) throws Throwable {
-				Object[] arg = invocation.getArguments();
+        when(this.articleRepository.findByTitleContaining(anyString())).thenThrow(RuntimeException.class);
+        this.articleServiceImpl.search("test title");
+    }
 
-				if (arg != null && arg.length > 0 && arg[0] != null) {
-					Article article = (Article) arg[0];
-					article.setId(1);
+    /**
+     * save() test case
+     */
+    @Test
+    public void testSave_returnArticleWithId() {
 
-					return article;
-				}
+        //		when(this.articleRepository.save(any())).then(invocationOnMock -> invocationOnMock.getArgument(0));
+        when(this.articleRepository.save(any(Article.class))).thenAnswer(new Answer<Article>() {
 
-				return null;
-			}
-		});
+            @Override
+            public Article answer(InvocationOnMock invocation) throws Throwable {
 
-		Article article = new Article();
-		this.articleServiceImpl.save(article);
+                Object[] arg = invocation.getArguments();
 
-		assertEquals(article.getId(), 1);
-	}
+                if (arg != null && arg.length > 0 && arg[0] != null) {
+                    Article article = (Article) arg[0];
+                    article.setId(1);
 
-	@Test(expected = RuntimeException.class)
-	public void testSave_throwsException() {
+                    return article;
+                }
 
-		when(this.articleRepository.save(any(Article.class))).thenThrow(RuntimeException.class);
-		this.articleServiceImpl.save(new Article());
-	}
+                return null;
+            }
+        });
 
-	/**
-	 * delete() test case
-	 */
-	@Test(expected = RuntimeException.class)
-	public void testDelete_throwsException() {
-//		doAnswer(new Answer<Void>() {
-//
-//			@Override
-//			public Void answer(InvocationOnMock invocation) throws Throwable {
-//				return null;
-//			}
-//
-//		}).when(this.articleRepository).deleteById(anyLong());
+        Article article = new Article();
+        this.articleServiceImpl.save(article);
 
-		doThrow(RuntimeException.class).when(this.articleRepository).deleteById(anyLong());
+        assertEquals(article.getId(), 1);
+    }
 
-		this.articleServiceImpl.delete(3);
-	}
+    @Test(expected = RuntimeException.class)
+    public void testSave_throwsException() {
 
-	/**
-	 * findOneWithException() test case
-	 */
-	@Test(expected = EntityNotFoundException.class)
-	public void testFindOneWithException_returnException() throws EntityNotFoundException {
+        when(this.articleRepository.save(any(Article.class))).thenThrow(RuntimeException.class);
+        this.articleServiceImpl.save(new Article());
+    }
 
-		this.articleServiceImpl.findOneWithException(3);
-	}
+    /**
+     * delete() test case
+     */
+    @Test(expected = RuntimeException.class)
+    public void testDelete_throwsException() {
+        //		doAnswer(new Answer<Void>() {
+
+        //
+        //			@Override
+        //			public Void answer(InvocationOnMock invocation) throws Throwable {
+        //				return null;
+        //			}
+        //
+        //		}).when(this.articleRepository).deleteById(anyLong());
+
+        doThrow(RuntimeException.class).when(this.articleRepository).deleteById(anyLong());
+
+        this.articleServiceImpl.delete(3);
+    }
+
+    /**
+     * findOneWithException() test case
+     */
+    @Test(expected = EntityNotFoundException.class)
+    public void testFindOneWithException_returnException() throws EntityNotFoundException {
+
+        this.articleServiceImpl.findOneWithException(3);
+    }
 
 }

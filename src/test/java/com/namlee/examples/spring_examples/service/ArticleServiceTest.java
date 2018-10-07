@@ -22,44 +22,46 @@ import com.namlee.examples.spring_examples.repository.ArticleRepository;
 @RunWith(SpringRunner.class)
 public class ArticleServiceTest {
 
-	@TestConfiguration
-	static class ArticleServiceTestContextConfiguration {
+    @TestConfiguration
+    static class ArticleServiceTestContextConfiguration {
 
-		@Bean
-		public ArticleService articleService() {
-			return new ArticleServiceImpl();
-		}
-	}
+        @Bean
+        public ArticleService articleService() {
 
-	@Autowired
-	private ArticleService articleService;
+            return new ArticleServiceImpl();
+        }
+    }
 
-	@MockBean
-	private ArticleRepository articleRepository;
+    @Autowired
+    private ArticleService articleService;
 
-	@Before
-	public void setUp() {
-		Article article1 = new Article(1, "title_1", "content_1");
-		Article article2 = new Article(2, "title_2", "content_2");
-		Article article3 = new Article(3, "title_3", "content_3");
-		List<Article> articles = new ArrayList<>();
-		articles.add(article1);
-		articles.add(article2);
-		articles.add(article3);
+    @MockBean
+    private ArticleRepository articleRepository;
 
-		when(this.articleRepository.findByTitleContaining(anyString())).thenReturn(articles);
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void givenTitle_whenSearchWithTitle_thenReturnListOfArticle() {
+        Article article1 = new Article(1, "title_1", "content_1");
+        Article article2 = new Article(2, "title_2", "content_2");
+        Article article3 = new Article(3, "title_3", "content_3");
+        List<Article> articles = new ArrayList<>();
+        articles.add(article1);
+        articles.add(article2);
+        articles.add(article3);
 
-		// given
-		String titleSearch = "title";
+        when(this.articleRepository.findByTitleContaining(anyString())).thenReturn(articles);
+    }
 
-		// when
-		List<Article> articles = this.articleService.search(titleSearch);
+    @Test
+    public void givenTitle_whenSearchWithTitle_thenReturnListOfArticle() {
 
-		// then
-		assertEquals(articles.size(), 3);
-	}
+        // given
+        String titleSearch = "title";
+
+        // when
+        List<Article> articles = this.articleService.search(titleSearch);
+
+        // then
+        assertEquals(articles.size(), 3);
+    }
 }

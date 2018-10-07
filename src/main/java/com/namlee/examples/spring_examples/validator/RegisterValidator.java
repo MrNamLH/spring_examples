@@ -12,27 +12,29 @@ import com.namlee.examples.spring_examples.service.UserService;
 @Component
 public class RegisterValidator implements Validator {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Override
-	public boolean supports(Class<?> cls) {
-		return User.class.isAssignableFrom(cls);
-	}
+    @Override
+    public boolean supports(Class<?> cls) {
 
-	@Override
-	public void validate(Object o, Errors errors) {
-		User user = (User) o;
+        return User.class.isAssignableFrom(cls);
+    }
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "NotEmpty");
+    @Override
+    public void validate(Object o, Errors errors) {
 
-		if (!user.getConfirmPassword().equals(user.getPassword())) {
-			errors.rejectValue("confirmPassword", "Match.user.confirmPassword");
-		}
+        User user = (User) o;
 
-		if (userService.findByEmail(user.getEmail()) != null) {
-			errors.rejectValue("email", "Exists.user.email");
-		}
-	}
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "NotEmpty");
+
+        if (!user.getConfirmPassword().equals(user.getPassword())) {
+            errors.rejectValue("confirmPassword", "Match.user.confirmPassword");
+        }
+
+        if (userService.findByEmail(user.getEmail()) != null) {
+            errors.rejectValue("email", "Exists.user.email");
+        }
+    }
 
 }

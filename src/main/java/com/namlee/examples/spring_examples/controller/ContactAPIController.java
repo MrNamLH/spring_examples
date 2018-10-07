@@ -18,35 +18,42 @@ import com.namlee.examples.spring_examples.service.ContactService;
 @CrossOrigin
 @RestController
 public class ContactAPIController {
-	private ContactService contactService;
 
-	@Autowired
+    private ContactService contactService;
+
+    @Autowired
     public ContactAPIController(ContactService contactService) {
+
         this.contactService = contactService;
     }
 
-	@GetMapping("/api/contact")
-	public Iterable<Contact> listContact() {
-		return contactService.findAll();
-	}
+    @GetMapping("/api/contact")
+    public Iterable<Contact> listContact() {
 
-	@GetMapping("/api/contact/search")
-	public List<Contact> searchContact(@RequestParam("term") String term) {
-		return contactService.search(term);
-	}
+        return contactService.findAll();
+    }
 
-	@GetMapping("/api/contact/{id}")
-	public Contact getContact(@PathVariable("id") Integer id) {
-		return contactService.findOne(id);
-	}
+    @GetMapping("/api/contact/search")
+    public List<Contact> searchContact(@RequestParam("term") String term) {
 
-	@PostMapping("/api/contact/save")
-	public Contact saveContact(@RequestBody Contact contact) {
-		return contactService.save(contact);
-	}
+        return contactService.search(term);
+    }
 
-	@DeleteMapping("/api/contact/delete/{id}")
-	public void deleteContact(@PathVariable("id") Integer id) {
-		contactService.delete(id);
-	}
+    @GetMapping("/api/contact/{id}")
+    public Contact getContact(@PathVariable("id") Integer id) {
+
+        return contactService.findOne(id);
+    }
+
+    @PostMapping("/api/contact/save")
+    public Contact saveContact(@RequestBody Contact contact) {
+
+        return contactService.save(contact);
+    }
+
+    @DeleteMapping("/api/contact/delete/{id}")
+    public void deleteContact(@PathVariable("id") Integer id) {
+
+        contactService.delete(id);
+    }
 }

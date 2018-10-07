@@ -13,34 +13,39 @@ import com.namlee.examples.spring_examples.repository.ContactRepository;
 @Transactional(readOnly = true)
 public class ContactServiceImpl implements ContactService {
 
-	@Autowired
-	private ContactRepository contactRepository;
+    @Autowired
+    private ContactRepository contactRepository;
 
-	@Override
-	public Iterable<Contact> findAll() {
-		return contactRepository.findAll();
-	}
+    @Override
+    public Iterable<Contact> findAll() {
 
-	@Override
-	public List<Contact> search(String q) {
-		return contactRepository.findByNameContaining(q);
-	}
+        return contactRepository.findAll();
+    }
 
-	@Override
-	public Contact findOne(int id) {
-		return contactRepository.findById(id).orElse(null);
-	}
+    @Override
+    public List<Contact> search(String q) {
 
-	@Override
-	@Transactional
-	public Contact save(Contact contact) {
-		return contactRepository.save(contact);
-	}
+        return contactRepository.findByNameContaining(q);
+    }
 
-	@Override
-	@Transactional
-	public void delete(int id) {
-		contactRepository.deleteById(id);
-	}
+    @Override
+    public Contact findOne(int id) {
+
+        return contactRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public Contact save(Contact contact) {
+
+        return contactRepository.save(contact);
+    }
+
+    @Override
+    @Transactional
+    public void delete(int id) {
+
+        contactRepository.deleteById(id);
+    }
 
 }

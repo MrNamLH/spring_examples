@@ -23,17 +23,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "acticle")
 public class Article implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private long id;
 
-	@NotEmpty
-	private String title;
+    @NotEmpty
+    private String title;
 
-	@NotEmpty
-	@Type(type = "text")
-	private String content;
+    @NotEmpty
+    @Type(type = "text")
+    private String content;
 }

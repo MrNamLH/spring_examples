@@ -1,20 +1,23 @@
 package com.namlee.examples.spring_examples.model;
 
 public class Hello {
-	private String greeting;
 
-	public Hello() {
-	}
+    private String greeting;
 
-	public Hello(String greeting) {
-		this.greeting = greeting;
-	}
+    public Hello() {}
 
-	public void setGreeting(String greeting) {
-		this.greeting = greeting;
-	}
+    public Hello(String greeting) {
 
-	public String getGreeting() {
-		return this.greeting;
-	}
+        this.greeting = greeting;
+    }
+
+    public void setGreeting(String greeting) {
+
+        this.greeting = greeting;
+    }
+
+    public String getGreeting() {
+
+        return this.greeting;
+    }
 }

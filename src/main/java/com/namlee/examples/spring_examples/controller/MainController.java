@@ -12,39 +12,45 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-	@GetMapping("/")
-	public String index() {
-		return "redirect:/articles";
-	}
+    @GetMapping("/")
+    public String index() {
 
-	@GetMapping("/admin")
-	public String admin() {
-		return "/admin/admin";
-	}
+        return "redirect:/articles";
+    }
 
-	@GetMapping("/403")
-	public String accessDenied() {
-		return "403";
-	}
+    @GetMapping("/admin")
+    public String admin() {
 
-	@GetMapping("/login")
-	public String getLogin() {
-		return "/login";
-	}
+        return "/admin/admin";
+    }
 
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null) {
-			new SecurityContextLogoutHandler().logout(request, response, authentication);
-		}
+    @GetMapping("/403")
+    public String accessDenied() {
 
-		return "redirect:/";
-	}
+        return "403";
+    }
 
-	@GetMapping("/socket")
-	public String getSocket() {
-		return "/socket/index";
-	}
+    @GetMapping("/login")
+    public String getLogin() {
+
+        return "/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/socket")
+    public String getSocket() {
+
+        return "/socket/index";
+    }
 
 }

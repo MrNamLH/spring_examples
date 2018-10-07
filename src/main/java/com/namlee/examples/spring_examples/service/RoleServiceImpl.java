@@ -9,17 +9,19 @@ import com.namlee.examples.spring_examples.repository.RoleRepository;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Override
-	public Role findByName(String name) {
-		return roleRepository.findByName(name);
-	}
+    @Override
+    public Role findByName(String name) {
 
-	@Override
-	public void save(Role role) {
-		roleRepository.save(role);
-	}
+        return roleRepository.findByName(name);
+    }
+
+    @Override
+    public void save(Role role) {
+
+        roleRepository.save(role);
+    }
 
 }

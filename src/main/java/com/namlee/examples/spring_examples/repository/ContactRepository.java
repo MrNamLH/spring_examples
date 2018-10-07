@@ -8,6 +8,6 @@ import com.namlee.examples.spring_examples.domain.Contact;
 
 public interface ContactRepository extends CrudRepository<Contact, Integer> {
 
-	List<Contact> findByNameContaining(String q);
+    List<Contact> findByNameContaining(String q);
 
 }
