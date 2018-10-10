@@ -4,7 +4,7 @@
 <body>
 	<nav th:replace="layout :: header"></nav>
 
-	<div class="container main-content list">
+	<div class="container main-content">
 		<div th:if="${success}"
 			class="row alert alert-success alert-dismissible fade show"
 			role="alert">
@@ -16,43 +16,48 @@
 		</div>
 
 		<th:block th:if="${#lists.isEmpty(articles)}">
-			<h3>No articles</h3>
 			<a th:href="@{/articles/create}" class="btn btn-success pull-left">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				Add new article
 			</a>
+			<h3>No articles</h3>
 		</th:block>
 
 		<th:block th:unless="${#lists.isEmpty(articles)}">
-			<div class="row justify-content-between">
-				<a th:href="@{/articles/create}"
-					class="btn btn-success justify-content-start"> <span
-						class="fas fa-plus"></span> Add new article
-				</a>
-				<form class="form-inline justify-content-end" action="#"
-					th:action="@{/articles/search}" method="GET">
-					<div class="form-group">
-						<input type="text" class="form-control mr-sm-2" name="q"
-							placeholder="Type article title..." />
-					</div>
-					<button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
-				</form>
+			<div id="seach_zone">
+				<div class="row justify-content-between">
+					<a th:href="@{/articles/create}"
+						class="btn btn-success justify-content-start"> <span
+							class="fas fa-plus"></span> Add new article
+					</a>
+					<form class="form-inline justify-content-end" action="#"
+						th:action="@{/articles/search}" method="GET">
+						<div class="form-group">
+							<input type="text" class="form-control mr-sm-2" name="q"
+								placeholder="Type article title..." />
+						</div>
+						<button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+					</form>
+				</div>
 			</div>
 			<div class="container">
-				<div class="row">
-					<ul class="list-unstyled">
-						<li th:each="article,iterStat : ${articles}" class="media">
-							<!-- 							<img class="mr-3" src=".../64x64" alt="Image"> -->
-							<div class="media-body">
-								<h5 class="mt-0 mb-1">
-									<a th:href="@{/articles/{id}/edit(id=${article.id})}"
-										th:text="${article.title}"> </a>
-								</h5>
-								<p class="lead" th:text="${article.content}"></p>
-							</div>
-						</li>
-					</ul>
+				<div class="row align-items-start">
+					<div class="card post_card"
+						th:each="article, iterStat : ${articles}">
+						<img class="card-img-top" src="/images/post_default.png"
+							alt="Card image cap">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a th:href="@{/articles/{id}/edit(id=${article.id})}"
+									th:text="${article.title}"> </a>
+							</h5>
+							<p class="card-text content_sumary" th:text="${article.content}"></p>
+							<a th:href="@{/articles/{id}/edit(id=${article.id})}"
+								class="btn btn-primary">Read more ...</a>
+						</div>
+					</div>
 				</div>
+
 			</div>
 		</th:block>
 	</div>

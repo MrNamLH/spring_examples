@@ -1,0 +1,198 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+@import "./classes.scss";
+@import "./animate.scss";
+
+html,
+body {
+  width: 100% !important;
+  height: 100% !important;
+  font-size: $font-size;
+  line-height: initial;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-Nunito;
+  background-color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  font-family: $font-family-Roboto;
+}
+
+#top {
+  background: #003366;
+  padding: 10px 0;
+
+  ul.menu {
+    padding: 5px;
+    margin: 0;
+    text-align: right;
+    list-style: none;
+
+    > li {
+      display: inline-block;
+
+      a {
+        color: #eeeeee;
+        text-decoration: none;
+
+        &:hover {
+          color: #17a2b8;
+        }
+      }
+
+      + li:before {
+        content: "|";
+        padding: 0 5px;
+        color: #f7f7f7;
+      }
+    }
+  }
+
+  /* Metis menu */
+  .topbar-nav {
+    background: #003366;
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      background: #003366;
+    }
+
+    .metismenu {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+
+      > li {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 0%;
+        flex: 1 1 0%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        position: relative;
+
+        > ul {
+          padding: 10px 0;
+
+          /* for display as menu*/
+          position: absolute;
+          top: 100%;
+          min-width: 100%;
+          z-index: 1001;
+        }
+      }
+      a {
+        position: relative;
+        display: block;
+        padding: 7px;
+        color: #adb5bd;
+        outline-width: 0;
+        transition: all 0.3s ease-out;
+
+        &:hover,
+        :focus,
+        :active {
+          color: #f8f9fa;
+          text-decoration: none;
+          background: #0b7285;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .topbar-nav {
+      .metismenu {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+
+        > li {
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+
+          > ul {
+            position: absolute;
+            top: 100%;
+            min-width: 100%;
+            z-index: 1001;
+          }
+        }
+      }
+
+      &.is-hoverable {
+        .metismenu {
+          > li {
+            > ul {
+              height: auto !important;
+            }
+
+            &:hover {
+              > ul {
+                display: block;
+              }
+
+              > a.has-arrow:after {
+                -webkit-transform: rotate(-135deg);
+                transform: rotate(-135deg);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.main-content {
+  padding-top: 50px;
+  min-height: 90vh;
+
+  #seach_zone {
+    padding: 10px 0 15px;
+  }
+
+  .container .post_card {
+    width: 22rem;
+    padding: 5px;
+    margin: 0 10px 10px 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+      0 1px 1px -1px rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+    .card-body p.content_sumary {
+      white-space: pre-wrap;
+      width: 19rem;
+      height: 12rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    &:hover {
+      box-shadow: 0 1px 1px 0 rgb(255, 0, 255),
+      0 1px 1px -1px rgb(0, 255, 0), 0 1px 5px 0 rgb(155, 236, 247);
+    }
+  }
+}
